@@ -5,7 +5,7 @@ var connection = mysql.createConnection({
   host: "localhost",
   port: 3306,
   user: "root",
-  password: "",
+  password: "Blueboy42$",
   database: "bamazon"
 });
 
@@ -33,8 +33,8 @@ function start() {
 }
 //function to change stock quantity and return error (need to fix bugs)
 function checkdatabase (idNumber, quantity){
-    connection.query("SELECT * FROM products WHERE item_id = '" + idNumber + "'",  
-     
+      
+     connection.query(`SELECT * FROM products WHERE item_id = ${idNumber}`, 
     
      function(err, res){
          if (err){
@@ -42,7 +42,7 @@ function checkdatabase (idNumber, quantity){
          };
     if (quantity <= res[0].stock_quantity){
       console.log("you owe" + res[0].price * quantity );
-      connection.query("UPDATE products SET stock_quantity = stock_quantity - " + quantity + "WHERE item_id = '" + idNumber + "'")
+      connection.query(`UPDATE products SET stock_quantity = ${res[0].stock_quantity} -${quantity} WHERE item_id = ${idNumber}`)
     }
     else{
       console.log("Not enough products! try entering a lower number")
